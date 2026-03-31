@@ -1,0 +1,1 @@
+export default (req,res)=>res.status(200).json({ok:true,version:'1.0'});

@@ -1,0 +1,10 @@
+node_modules/
+.next/
+out/
+.env.local
+.env
+.env.*.local
+.DS_Store
+Thumbs.db
+Neon Console*
+.vscode/
