@@ -24,7 +24,13 @@ export default function RedirectPage({ url, code, securityBlocked, securityReaso
                     maxWidth: '500px',
                     margin: '1rem'
                 }}>
-                    <div style={{ fontSize: '4rem', marginBottom: '1rem' }}>⚠️</div>
+                    <div style={{ fontSize: '4rem', marginBottom: '1rem', color: '#dc2626' }}>
+                        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                            <line x1="12" y1="9" x2="12" y2="13"/>
+                            <line x1="12" y1="17" x2="12.01" y2="17"/>
+                        </svg>
+                    </div>
                     <h1 style={{ color: '#dc2626', marginBottom: '1rem' }}>{t('securityWarning', locale)}</h1>
                     <p style={{ color: '#64748b', lineHeight: 1.6, marginBottom: '1.5rem' }}>
                         {t('securityMessage', locale)}
@@ -107,7 +113,12 @@ function RedirectWithCountdown({ url, code, locale }) {
                 maxWidth: '600px',
                 margin: '1rem'
             }}>
-                <div style={{ fontSize: '4rem', marginBottom: '1rem' }}>🔗</div>
+                <div style={{ fontSize: '4rem', marginBottom: '1rem', color: '#2563eb' }}>
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+                        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+                    </svg>
+                </div>
                 <h1 style={{ color: '#1e293b', marginBottom: '1rem', fontSize: '1.5rem' }}>
                     {t('redirectTitle', locale)}
                 </h1>
@@ -130,7 +141,12 @@ function RedirectWithCountdown({ url, code, locale }) {
                     </a>
                 </div>
                 <p style={{ color: '#f59e0b', fontSize: '0.875rem', marginBottom: '1.5rem' }}>
-                    ⚠️ {t('redirectNotice', locale)}
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginRight: '0.5rem', verticalAlign: 'middle' }}>
+                        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                        <line x1="12" y1="9" x2="12" y2="13"/>
+                        <line x1="12" y1="17" x2="12.01" y2="17"/>
+                    </svg>
+                    {t('redirectNotice', locale)}
                 </p>
                 <div style={{
                     fontSize: '3rem',
