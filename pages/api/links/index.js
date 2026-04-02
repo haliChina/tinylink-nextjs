@@ -1,5 +1,6 @@
 import pool from '../../../lib/db';
 import { isURL } from 'validator';
+import { validateUrlSecurity, logSecurityEvent } from '../../../lib/security';
 const CODE = /^[A-Za-z0-9]{6,8}$/;
 export default async function h(req, res) {
   if (req.method === 'GET') {
@@ -8,7 +9,32 @@ export default async function h(req, res) {
   }
   if (req.method === 'POST') {
     const { url, code } = req.body;
-    if (!isURL(url || '', { require_protocol: true })) return res.status(400).json({ error: 'Invalid url' });
+    
+    // 基础URL格式验证
+    if (!isURL(url || '', { require_protocol: true })) {
+      return res.status(400).json({ error: 'Invalid url' });
+    }
+    
+    // 安全验证
+    const securityCheck = validateUrlSecurity(url);
+    if (!securityCheck.isValid) {
+      logSecurityEvent('BLOCKED_URL_CREATION', {
+        url: url,
+        reason: securityCheck.reason,
+        ip: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
+        userAgent: req.headers['user-agent']
+      });
+      return res.status(400).json({ error: securityCheck.reason });
+    }
+    
+    // 记录可疑但允许的URL
+    if (url.toLowerCase().includes('login') || url.toLowerCase().includes('verify')) {
+      logSecurityEvent('SUSPICIOUS_URL_ALLOWED', {
+        url: url,
+        ip: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
+        userAgent: req.headers['user-agent']
+      });
+    }
     let c = code;
     if (c) {
       if (!CODE.test(c)) return res.status(400).json({ error: 'Invalid code' });
