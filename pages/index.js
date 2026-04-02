@@ -250,6 +250,23 @@ export default function Dashboard() {
 
                 {/* Footer */}
                 <div className="text-center mt-8 text-slate-500 text-sm">
+                    <div className="flex justify-center gap-6 mb-4">
+                        <a href="/disclaimer" className="hover:text-blue-600 transition-colors">
+                            免责声明
+                        </a>
+                        <a href="/terms" className="hover:text-blue-600 transition-colors">
+                            用户协议
+                        </a>
+                        <a href="/privacy" className="hover:text-blue-600 transition-colors">
+                            隐私政策
+                        </a>
+                    </div>
+                    <div className="mb-4">
+                        <p className="mb-2">如有任何问题、投诉、举报或反馈，请联系我们：</p>
+                        <a href="mailto:admin@userhali.com" className="text-blue-600 hover:text-blue-800 transition-colors font-medium">
+                            admin@userhali.com
+                        </a>
+                    </div>
                     <p>Built with Next.js & Tailwind CSS</p>
                 </div>
             </div>
