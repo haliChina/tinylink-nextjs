@@ -1,7 +1,7 @@
 import React from 'react';
 import pool from '../lib/db';
 import { validateUrlSecurity, getSecurityHeaders, logSecurityEvent } from '../lib/security';
-import { t } from '../lib/i18n';
+import { t, getLocaleFromHeaders } from '../lib/i18n';
 
 export default function RedirectPage({ url, code, securityBlocked, securityReason, locale }) {
     if (securityBlocked) {
@@ -220,10 +220,10 @@ function RedirectWithCountdown({ url, code, locale }) {
 
 export async function getServerSideProps({ params, res, req }) {
     const c = params.code;
-    
+
     // 获取语言偏好
     const acceptLanguage = req.headers['accept-language'] || '';
-    const locale = acceptLanguage.includes('zh') ? 'zh' : 'en';
+    const locale = getLocaleFromHeaders(acceptLanguage);
     
     // 查询链接
     const r = await pool.query('SELECT url FROM links WHERE code=$1', [c]);
