@@ -1,4 +1,4 @@
-import { t } from '../lib/i18n';
+import { t, getLocaleFromHeaders } from '../lib/i18n';
 
 export default function Disclaimer({ locale }) {
     return (
@@ -159,8 +159,8 @@ export default function Disclaimer({ locale }) {
 
 export async function getServerSideProps({ req }) {
     const acceptLanguage = req.headers['accept-language'] || '';
-    const locale = acceptLanguage.includes('zh') ? 'zh' : 'en';
-    
+    const locale = getLocaleFromHeaders(acceptLanguage);
+
     return {
         props: {
             locale
