@@ -2,6 +2,8 @@
 A lightweight, full-stack URL shortener built with **Next.js**, **NeonDB (PostgreSQL)**, and **API Routes**.  
 This project was created as part of the **Take-Home Assignment: TinyLink**.
 
+> 本项目是Fork的，主要修改了UI并增加了5秒盾防止您的域名爆炸，顺路加入了一些协议/声明。
+
 ---
 
 ## 🚀 Demo Link  
@@ -118,6 +120,7 @@ DELETE /api/links/:code
 ### **6. Redirect**
 GET /:code
 Redirects to original URL and updates click count.
+```
 
 ⚙️ Environment Variables
 Create a .env.local file:
