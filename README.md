@@ -13,7 +13,7 @@ This project was created as part of the **Take-Home Assignment: TinyLink**.
 ---
 
 ## 📦 GitHub Repository  
-**https://github.com/navyatha2003/tinylink-nextjs**
+**https://github.com/haliChina/tinylink-nextjs**
 
 ---
 
