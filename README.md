@@ -51,7 +51,7 @@ The app uses a **Neon PostgreSQL database** and provides a fully functional back
 ---
 
 ## 📁 Folder Structure
-
+```b
 tinylink-nextjs/
 │── pages/
 │ ├── index.js # Dashboard (Create + List Links)
@@ -71,6 +71,7 @@ tinylink-nextjs/
 │── .env.example
 │── package.json
 │── README.md
+```
 
 ---
 
@@ -81,14 +82,16 @@ tinylink-nextjs/
 Response:
 ```json
 { "ok": true, "version": "1.0" }
-
+```
 ### **2. Create Short Link**
-POST /api/links
+`POST /api/links`
 Body:
+```json
 {
   "url": "https://google.com",
   "code": "google01"
 }
+```
 
 Responses:
 201 Created
@@ -96,8 +99,9 @@ Responses:
 400 Invalid URL
 
 ### **3. Get All Links**
-GET /api/links
+`GET /api/links`
 Returns:
+```json
 {
   "links": [
     {
@@ -109,31 +113,50 @@ Returns:
     }
   ]
 }
-
+```
 
 ### **4. Get Single Link**
-GET /api/links/:code
+`GET /api/links/:code`
 
 ### **5. Delete Link**
-DELETE /api/links/:code
+`DELETE /api/links/:code`
 
 ### **6. Redirect**
-GET /:code
+`GET /:code`
 Redirects to original URL and updates click count.
-```
 
 ⚙️ Environment Variables
 Create a .env.local file:
+```env
 DATABASE_URL=postgresql://<your-neon-db-connection-url>
 NEXT_PUBLIC_BASE_URL=http://localhost:3000
+```
 
 🧪 Features Implemented (Assignment Checklist)
-FeatureStatusCreate short URL✅Custom code✅Duplicate code → 409✅Redirect using short code✅Click count update✅Last-click timestamp✅GET all links✅GET one link✅Delete link✅Stats page✅Health check endpoint✅NeonDB connection✅
+
+```b
+FeatureStatus
+Create short URL
+Custom code
+Duplicate code → 409
+Redirect using short code
+Click count update
+Last-click timestamp
+GET all links
+GET one link
+Delete link
+Stats page
+Health check endpoint
+NeonDB connection
+```
+
 ✔ All assignment requirements are completed successfully.
 
 ▶️ Run Locally
+```cmd
 npm install
 npm run dev
+```
 
 App runs on:
 👉 http://localhost:3000/
