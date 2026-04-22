@@ -7,7 +7,6 @@ This project was created as part of the **Take-Home Assignment: TinyLink**.
 ---
 
 ## 🚀 Demo Link  
-(Replace after deployment)
 **https://tinylink.userhali.com**
 
 ---
