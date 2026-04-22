@@ -2,13 +2,13 @@
 A lightweight, full-stack URL shortener built with **Next.js**, **NeonDB (PostgreSQL)**, and **API Routes**.  
 This project was created as part of the **Take-Home Assignment: TinyLink**.
 
-> 本项目是Fork的，主要修改了UI并增加了5秒盾防止您的域名爆炸，顺路加入了一些协议/声明。
+> 本项目Fork By [This Repository](https://github.com/navyatha2003/tinylink-nextjs)，主要修改了UI并增加了5秒盾防止您的域名爆炸，顺路加入了一些协议/声明。
 
 ---
 
 ## 🚀 Demo Link  
 (Replace after deployment)
-**https://tinylink-nextjs.vercel.app**
+**https://tinylink.userhali.com**
 
 ---
 
