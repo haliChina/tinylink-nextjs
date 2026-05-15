@@ -1,7 +1,10 @@
 import { t, getLocaleFromHeaders } from '../lib/i18n';
+import SeoHead from '../components/SeoHead';
 
 export default function Privacy({ locale }) {
     return (
+        <>
+            <SeoHead title="Privacy Policy | TinyLink" description="TinyLink privacy policy describing data collection, security practices, and user rights." path="/privacy" />
         <div style={{
             fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
             minHeight: '100vh',
@@ -210,6 +213,7 @@ export default function Privacy({ locale }) {
                 </div>
             </div>
         </div>
+        </>
     );
 }
 

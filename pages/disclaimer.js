@@ -1,7 +1,10 @@
 import { t, getLocaleFromHeaders } from '../lib/i18n';
+import SeoHead from '../components/SeoHead';
 
 export default function Disclaimer({ locale }) {
     return (
+        <>
+            <SeoHead title="Security Disclaimer | TinyLink" description="TinyLink security and risk disclaimer for link redirects and user responsibilities." path="/disclaimer" />
         <div style={{
             fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
             minHeight: '100vh',
@@ -154,6 +157,7 @@ export default function Disclaimer({ locale }) {
                 </div>
             </div>
         </div>
+        </>
     );
 }
 

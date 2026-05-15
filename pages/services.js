@@ -1,0 +1,2 @@
+import SeoHead from '../components/SeoHead';
+export default function Services(){return <main className="min-h-screen p-6 max-w-4xl mx-auto"><SeoHead title="Services | TinyLink" description="TinyLink service capabilities including short links, redirect safety checks, and traffic insights." path="/services"/><h1 className="text-3xl font-bold mb-4">Services</h1><h2 className="font-semibold">Short links</h2><p>Create readable and shareable links.</p><h2 className="font-semibold mt-3">Redirect safety</h2><p>Users see a redirect notice before leaving TinyLink.</p></main>}

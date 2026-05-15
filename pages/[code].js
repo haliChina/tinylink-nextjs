@@ -2,6 +2,7 @@ import React from 'react';
 import pool from '../lib/db';
 import { validateUrlSecurity, getSecurityHeaders, logSecurityEvent } from '../lib/security';
 import { t, getLocaleFromHeaders } from '../lib/i18n';
+import SeoHead from '../components/SeoHead';
 
 export default function RedirectPage({ url, code, securityBlocked, securityReason, locale }) {
     if (securityBlocked) {
@@ -56,9 +57,7 @@ export default function RedirectPage({ url, code, securityBlocked, securityReaso
         );
     }
 
-    return (
-        <RedirectWithCountdown url={url} code={code} locale={locale} />
-    );
+    return <RedirectWithCountdown url={url} code={code} locale={locale} />;
 }
 
 function RedirectWithCountdown({ url, code, locale }) {
@@ -95,6 +94,8 @@ function RedirectWithCountdown({ url, code, locale }) {
     };
 
     return (
+        <>
+            <SeoHead title="Redirect Notice | TinyLink" description="Redirect safety notice before opening destination URLs." path="/redirect" noindex />
         <div style={{
             fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
             display: 'flex',
@@ -215,6 +216,7 @@ function RedirectWithCountdown({ url, code, locale }) {
                 </div>
             </div>
         </div>
+        </>
     );
 }
 

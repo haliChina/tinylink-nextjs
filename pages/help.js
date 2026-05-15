@@ -1,0 +1,2 @@
+import SeoHead from '../components/SeoHead';
+export default function Help(){return <main className="min-h-screen p-6 max-w-4xl mx-auto"><SeoHead title="Help Center | TinyLink" description="How to use TinyLink to create, manage, and analyze short links." path="/help"/><h1 className="text-3xl font-bold mb-4">Help</h1><p>Step 1: paste destination URL. Step 2: optional custom code. Step 3: create and share your link. Use the stats page for click details.</p></main>}
