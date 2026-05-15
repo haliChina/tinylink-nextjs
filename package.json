@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "prebuild": "node scripts/generate-seo-files.mjs",
+    "seo:generate": "node scripts/generate-seo-files.mjs"
   },
   "dependencies": {
     "next": "14.0.0",
