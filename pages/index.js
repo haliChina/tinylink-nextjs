@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { t, getLocaleFromHeaders } from '../lib/i18n';
+import SeoHead from '../components/SeoHead';
+import { absoluteUrl } from '../lib/site';
 
 export default function Dashboard({ locale }) {
     const [links, setLinks] = useState([]);
@@ -47,6 +49,17 @@ export default function Dashboard({ locale }) {
     }
 
     return (
+        <>
+            <SeoHead
+                title={locale === 'zh' ? 'TinyLink - 安全短链接与点击统计工具' : 'TinyLink - Secure URL Shortener with Click Analytics'}
+                description={locale === 'zh' ? 'TinyLink 是一款可自定义短链、查看点击统计并提供跳转安全提醒的短链接工具，适合运营、营销与内容团队。' : 'TinyLink is a URL shortener for creating custom short links, tracking clicks, and adding safe redirect notices for marketing and content teams.'}
+                path="/"
+                jsonLd={[
+                    { '@context': 'https://schema.org', '@type': 'Organization', name: 'TinyLink', url: absoluteUrl('/'), contactPoint: [{ '@type': 'ContactPoint', email: 'admin@userhali.com', contactType: 'customer support' }] },
+                    { '@context': 'https://schema.org', '@type': 'WebSite', name: 'TinyLink', url: absoluteUrl('/'), potentialAction: { '@type': 'SearchAction', target: `${absoluteUrl('/')}{search_term_string}`, 'query-input': 'required name=search_term_string' } },
+                    { '@context': 'https://schema.org', '@type': 'SoftwareApplication', name: 'TinyLink', applicationCategory: 'BusinessApplication', operatingSystem: 'Web', offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' } }
+                ]}
+            />
         <div className="min-h-screen p-4 md:p-8 animate-fade-in">
             <div className="max-w-6xl mx-auto">
                 {/* Header */}
@@ -252,6 +265,11 @@ export default function Dashboard({ locale }) {
                 {/* Footer */}
                 <div className="text-center mt-8 text-slate-500 text-sm">
                     <div className="flex justify-center gap-6 mb-4">
+                        <a href="/about" className="hover:text-blue-600 transition-colors">About</a>
+                        <a href="/services" className="hover:text-blue-600 transition-colors">Services</a>
+                        <a href="/pricing" className="hover:text-blue-600 transition-colors">Pricing</a>
+                        <a href="/help" className="hover:text-blue-600 transition-colors">Help</a>
+                        <a href="/faq" className="hover:text-blue-600 transition-colors">FAQ</a>
                         <a href="/disclaimer" className="hover:text-blue-600 transition-colors">
                             {t('disclaimer', locale)}
                         </a>
@@ -272,6 +290,7 @@ export default function Dashboard({ locale }) {
                 </div>
             </div>
         </div>
+        </>
     );
 }
 
