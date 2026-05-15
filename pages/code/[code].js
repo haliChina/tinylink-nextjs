@@ -1,5 +1,6 @@
 import pool from "../../lib/db";
 import { t, getLocaleFromHeaders } from "../../lib/i18n";
+import SeoHead from '../../components/SeoHead';
 
 export async function getServerSideProps({ params, req }) {
     const code = params.code;
@@ -50,6 +51,8 @@ export default function StatsPage({ link, locale }) {
     };
 
     return (
+        <>
+            <SeoHead title="Link Analytics | TinyLink" description="Private analytics page for a specific TinyLink short URL." path="/code" noindex />
         <div className="min-h-screen p-4 md:p-8 animate-fade-in">
             <div className="max-w-4xl mx-auto">
                 {/* Header */}
@@ -190,5 +193,6 @@ export default function StatsPage({ link, locale }) {
                 </div>
             </div>
         </div>
+        </>
     );
 }
