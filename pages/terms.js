@@ -1,7 +1,10 @@
 import { t, getLocaleFromHeaders } from '../lib/i18n';
+import SeoHead from '../components/SeoHead';
 
 export default function Terms({ locale }) {
     return (
+        <>
+            <SeoHead title="Terms of Service | TinyLink" description="TinyLink terms of service for acceptable use, prohibited content, and limitations." path="/terms" />
         <div style={{
             fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
             minHeight: '100vh',
@@ -210,6 +213,7 @@ export default function Terms({ locale }) {
                 </div>
             </div>
         </div>
+        </>
     );
 }
 

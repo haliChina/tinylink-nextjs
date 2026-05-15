@@ -1,0 +1,22 @@
+# TinyLink
+
+TinyLink is a URL shortener web app for creating custom short links, warning users before redirect, and checking click statistics.
+
+## Key capabilities
+- Custom short code creation
+- Redirect notice and basic URL safety checks
+- Click analytics per short link
+
+## Public pages
+- /
+- /about
+- /services
+- /pricing
+- /help
+- /faq
+- /privacy
+- /terms
+- /disclaimer
+
+## Private or non-indexable areas
+User-specific analytics pages, API routes, and operational endpoints are not intended for indexing or model summarization.

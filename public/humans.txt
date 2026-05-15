@@ -1,0 +1,6 @@
+/* TEAM */
+Project: TinyLink
+Stack: Next.js + React + PostgreSQL
+
+/* SITE */
+SEO: metadata, sitemap, robots, structured data, llms.txt

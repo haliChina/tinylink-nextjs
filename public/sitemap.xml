@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://tinylink.example.com/</loc></url>
+  <url><loc>https://tinylink.example.com/about</loc></url>
+  <url><loc>https://tinylink.example.com/services</loc></url>
+  <url><loc>https://tinylink.example.com/pricing</loc></url>
+  <url><loc>https://tinylink.example.com/help</loc></url>
+  <url><loc>https://tinylink.example.com/faq</loc></url>
+  <url><loc>https://tinylink.example.com/privacy</loc></url>
+  <url><loc>https://tinylink.example.com/terms</loc></url>
+  <url><loc>https://tinylink.example.com/disclaimer</loc></url>
+</urlset>
