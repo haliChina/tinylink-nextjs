@@ -12,9 +12,17 @@ export default function Dashboard({ locale }) {
     const [success, setSuccess] = useState('');
 
     async function fetchLinks() {
-        const r = await fetch('/api/links');
+        const r = await fetch('/api/links', {
+            headers: {
+                'x-admin-password': process.env.NEXT_PUBLIC_ADMIN_PASSWORD || ''
+            }
+        });
         const j = await r.json();
-        setLinks(j.links || []);
+        if (r.ok) {
+            setLinks(j.links || []);
+        } else {
+            setError(j.error || 'Authentication failed');
+        }
     }
 
     useEffect(() => { fetchLinks(); }, []);
@@ -27,7 +35,10 @@ export default function Dashboard({ locale }) {
         try {
             const r = await fetch('/api/links', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'x-admin-password': process.env.NEXT_PUBLIC_ADMIN_PASSWORD || ''
+                },
                 body: JSON.stringify({ url, code: code || undefined })
             });
             const j = await r.json();
@@ -44,7 +55,12 @@ export default function Dashboard({ locale }) {
 
     async function handleDelete(c) {
         if (!confirm(t('confirmDelete', locale))) return;
-        await fetch(`/api/links/${c}`, { method: 'DELETE' });
+        await fetch(`/api/links/${c}`, { 
+            method: 'DELETE',
+            headers: {
+                'x-admin-password': process.env.NEXT_PUBLIC_ADMIN_PASSWORD || ''
+            }
+        });
         fetchLinks();
     }
 
