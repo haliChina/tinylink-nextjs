@@ -10,22 +10,62 @@ export default function Dashboard({ locale }) {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [authLoading, setAuthLoading] = useState(true);
+    const [loginPassword, setLoginPassword] = useState('');
+    const [loginError, setLoginError] = useState('');
 
-    async function fetchLinks() {
-        const r = await fetch('/api/links', {
-            headers: {
-                'x-admin-password': process.env.NEXT_PUBLIC_ADMIN_PASSWORD || ''
-            }
-        });
-        const j = await r.json();
-        if (r.ok) {
-            setLinks(j.links || []);
-        } else {
-            setError(j.error || 'Authentication failed');
+    async function checkAuth() {
+        try {
+            const r = await fetch('/api/auth');
+            const j = await r.json();
+            setIsAuthenticated(j.authenticated);
+        } catch {
+            setIsAuthenticated(false);
+        } finally {
+            setAuthLoading(false);
         }
     }
 
-    useEffect(() => { fetchLinks(); }, []);
+    async function handleLogin(e) {
+        e.preventDefault();
+        setLoginError('');
+        try {
+            const r = await fetch('/api/auth', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ password: loginPassword })
+            });
+            const j = await r.json();
+            if (r.ok) {
+                setIsAuthenticated(true);
+                setLoginPassword('');
+                fetchLinks();
+            } else {
+                setLoginError(j.error || 'Login failed');
+            }
+        } catch {
+            setLoginError('Network error');
+        }
+    }
+
+    async function handleLogout() {
+        await fetch('/api/auth', { method: 'DELETE' });
+        setIsAuthenticated(false);
+        setLinks([]);
+    }
+
+    async function fetchLinks() {
+        try {
+            const r = await fetch('/api/links');
+            const j = await r.json();
+            if (r.ok) {
+                setLinks(j.links || []);
+            }
+        } catch {}
+    }
+
+    useEffect(() => { checkAuth(); }, []);
 
     async function handleCreate(e) {
         e.preventDefault();
@@ -35,10 +75,7 @@ export default function Dashboard({ locale }) {
         try {
             const r = await fetch('/api/links', {
                 method: 'POST',
-                headers: { 
-                    'Content-Type': 'application/json',
-                    'x-admin-password': process.env.NEXT_PUBLIC_ADMIN_PASSWORD || ''
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ url, code: code || undefined })
             });
             const j = await r.json();
@@ -55,13 +92,57 @@ export default function Dashboard({ locale }) {
 
     async function handleDelete(c) {
         if (!confirm(t('confirmDelete', locale))) return;
-        await fetch(`/api/links/${c}`, { 
-            method: 'DELETE',
-            headers: {
-                'x-admin-password': process.env.NEXT_PUBLIC_ADMIN_PASSWORD || ''
-            }
-        });
+        await fetch(`/api/links/${c}`, { method: 'DELETE' });
         fetchLinks();
+    }
+
+    if (authLoading) {
+        return (
+            <div className="min-h-screen flex items-center justify-center">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+            </div>
+        );
+    }
+
+    if (!isAuthenticated) {
+        return (
+            <>
+                <SeoHead title="TinyLink - Login" path="/" />
+                <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-blue-50 p-4">
+                    <div className="card p-8 w-full max-w-md">
+                        <div className="text-center mb-8">
+                            <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-2">
+                                TinyLink
+                            </h1>
+                            <p className="text-slate-600">{locale === 'zh' ? '请登录以继续' : 'Please login to continue'}</p>
+                        </div>
+                        <form onSubmit={handleLogin} className="space-y-4">
+                            <div>
+                                <label className="block text-sm font-medium text-slate-700 mb-2">
+                                    {locale === 'zh' ? '管理员密码' : 'Admin Password'}
+                                </label>
+                                <input
+                                    type="password"
+                                    className="input-field w-full"
+                                    value={loginPassword}
+                                    onChange={e => setLoginPassword(e.target.value)}
+                                    placeholder="••••••••"
+                                    required
+                                />
+                            </div>
+                            {loginError && (
+                                <div className="text-red-600 bg-red-50 p-3 rounded-lg text-sm">
+                                    {loginError}
+                                </div>
+                            )}
+                            <button type="submit" className="btn-primary w-full">
+                                {locale === 'zh' ? '登录' : 'Login'}
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </>
+        );
     }
 
     return (
@@ -78,7 +159,12 @@ export default function Dashboard({ locale }) {
             />
         <div className="min-h-screen p-4 md:p-8 animate-fade-in">
             <div className="max-w-6xl mx-auto">
-                {/* Header */}
+                <div className="flex justify-end mb-4">
+                    <button onClick={handleLogout} className="text-sm text-slate-500 hover:text-red-600 transition-colors">
+                        {locale === 'zh' ? '退出登录' : 'Logout'}
+                    </button>
+                </div>
+
                 <div className="text-center mb-10">
                     <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-3">
                         TinyLink
@@ -86,7 +172,6 @@ export default function Dashboard({ locale }) {
                     <p className="text-slate-600 text-lg">{t('heroSubtitle', locale)}</p>
                 </div>
 
-                {/* Create Form Card */}
                 <div className="card p-6 md:p-8 mb-8 animate-slide-up">
                     <h2 className="text-xl font-semibold text-slate-800 mb-6 flex items-center gap-2">
                         <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -165,7 +250,6 @@ export default function Dashboard({ locale }) {
                     </form>
                 </div>
 
-                {/* Links Table Card */}
                 <div className="card overflow-hidden animate-slide-up" style={{ animationDelay: '0.1s' }}>
                     <div className="p-6 border-b border-slate-100">
                         <h2 className="text-xl font-semibold text-slate-800 flex items-center gap-2">
@@ -278,7 +362,6 @@ export default function Dashboard({ locale }) {
                     )}
                 </div>
 
-                {/* Footer */}
                 <div className="text-center mt-8 text-slate-500 text-sm">
                     <div className="flex justify-center gap-6 mb-4">
                         <a href="/about" className="hover:text-blue-600 transition-colors">About</a>
